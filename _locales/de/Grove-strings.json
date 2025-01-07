@@ -20,7 +20,7 @@
     "grove.onGesture|block": "wenn Grovegeste |%gesture|",
     "grove.measureInCentimeters|block": "Ultraschallsensor (in cm) an |%pin",
     "grove.measureInInches|block": "Ultraschallsensor (in inch) an |%pin",
-    "grove.measureMoisture|block": "Feuchtigkeit an |%pin|mode mit %mode|output|, als %outputType ausgeben",
+    "grove.measureMoisture|block": "Feuchtigkeit an |%pin|mode mit %mode|output als %outputType ausgeben",
     "grove.measureMoistureAnalogOriginal|block": "Feuchtigkeit (analog) an |%pin",
     "grove.measureMoisturePercent|block": "Feuchtigkeit (in Prozent) an |%pin",
     "grove.createDisplay|block": "4-Ziffern Display an|%clkPin|und|%dataPin",
