@@ -494,9 +494,6 @@ namespace grove {
     }
 
 
-    /**
-     * Mode of moisture sensor measurement
-     */
     enum MoistureMode {
         //% block="Grove sensor (blue)"
         //% block.loc.de="Grove Sensor (blau)"
@@ -505,10 +502,7 @@ namespace grove {
         //% block.loc.de="Calliope Sensor (schwarz)"
         Scaled
     }
-
-    /**
-     * Output type of the moisture sensor
-     */
+    
     enum MoistureOutput {
         //% block="analog"
         //% block.loc.de="Analog"
@@ -517,19 +511,18 @@ namespace grove {
         //% block.loc.de="Prozent"
         Percent
     }
-
+    
     /**
      * Read the moisture sensor value in different formats
      * @param pin signal pin of moisture sensor module
      * @param mode select the mode of measurement
      * @param outputType choose output type
      */
-    //% blockId=grove_Moisture_combined block="Moisture Sensor at|%pin|mode %mode|output as %outputType"
+    //% blockId=moisture_sensor_combined block="Moisture Sensor at|%pin|mode %mode|output as %outputType"
+    //% group="Moisture"
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
-    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
     //% mode.fieldEditor="gridpicker" mode.fieldOptions.columns=3
     //% outputType.fieldEditor="gridpicker" outputType.fieldOptions.columns=2
-    //% group="Moisture" pin.defl=AnalogPin.C16
     export function measureMoisture(
         pin: AnalogPin,
         mode: MoistureMode,
@@ -537,8 +530,7 @@ namespace grove {
     ): number {
         let rawValue = pins.analogReadPin(pin);
         let scaledValue = Math.round((rawValue - 700) * (500 - 10) / (400 - 700) + 10);
-
-        // Handle output type
+    
         if (outputType === MoistureOutput.Percent) {
             if (mode === MoistureMode.Scaled) {
                 return Math.round(((scaledValue - 10) * (85 - 10)) / (500 - 10) + 10);
@@ -546,7 +538,6 @@ namespace grove {
                 return Math.round((rawValue / 1023) * 100);
             }
         } else {
-            // Output as raw number
             return mode === MoistureMode.Scaled ? scaledValue : rawValue;
         }
     }
