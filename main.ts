@@ -492,7 +492,6 @@ namespace grove {
 
         return RangeInInches;
     }
-
     /**
      * Read the moisture sensor value in different formats
      * @param pin signal pin of moisture sensor module
@@ -524,32 +523,31 @@ namespace grove {
             // Output as raw number
             return mode === MoistureMode.Scaled ? scaledValue : rawValue;
         }
-    }
 
-    /**
-     * Mode of moisture sensor measurement
-     */
-    enum MoistureMode {
-        //% block="Grove sensor"
-        //% block.loc.de="Grove Sensor"
-        Original,
-        //% block="Calliope sensor"
-        //% block.loc.de="Calliope Sensor"
-        Scaled
-    }
+        /**
+         * Mode of moisture sensor measurement
+         */
+        enum MoistureMode {
+            //% block="Grove sensor (blue)"
+            //% block.loc.de="Grove Sensor (blau)"
+            Original,
+            //% block="Calliope sensor (black)"
+            //% block.loc.de="Calliope Sensor (schwarz)"
+            Scaled
+        }
 
-    /**
-     * Output type of the moisture sensor
-     */
-    enum MoistureOutput {
-        //% block="number"
-        //% block.loc.de="analog"
-        Number,
-        //% block="percent"
-        //% block.loc.de="Prozent"
-        Percent
+        /**
+         * Output type of the moisture sensor
+         */
+        enum MoistureOutput {
+            //% block="analog"
+            //% block.loc.de="Analog"
+            Number,
+            //% block="percent"
+            //% block.loc.de="Prozent"
+            Percent
+        }
     }
-
 
     /**
      * Create a new driver Grove - 4-Digit Display
