@@ -83,6 +83,24 @@ enum GroveJoystickKey {
     Press = 9
 }
 
+enum MoistureMode {
+    //% block="Grove sensor (blue)"
+    //% block.loc.de="Grove Sensor (blau)"
+    Original = 0,
+    //% block="Calliope sensor (black)"
+    //% block.loc.de="Calliope Sensor (schwarz)"
+    Scaled = 1
+}
+
+enum MoistureOutput {
+    //% block="analog"
+    //% block.loc.de="Analog"
+    Number = 0,
+    //% block="percent"
+    //% block.loc.de="Prozent"
+    Percent = 1
+}
+
 
 /**
  * Functions to operate Grove module.
@@ -493,63 +511,40 @@ namespace grove {
         return RangeInInches;
     }
 
-    /**
-     * Read the moisture sensor value in different formats
+
+     /**
+     * Read the analog values of the moisture sensor (original)
      * @param pin signal pin of moisture sensor module
      * @param mode select the mode of measurement
      * @param outputType choose output type
      */
-    //% blockId=grove_Moisture_combined block="Moisture Sensor at|%pin|mode %mode|output as %outputType"
-    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
-    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
-    //% mode.fieldEditor="gridpicker" mode.fieldOptions.columns=3
-    //% outputType.fieldEditor="gridpicker" outputType.fieldOptions.columns=2
-    //% group="Moisture" pin.defl=AnalogPin.C16
-    export function measureMoisture(
-        pin: AnalogPin,
-        mode: MoistureMode,
-        outputType: MoistureOutput
-    ): number {
-        let rawValue = pins.analogReadPin(pin);
-        let scaledValue = Math.round((rawValue - 700) * (500 - 10) / (400 - 700) + 10);
+     //% blockId=grove_Moisture_analoggrove
+     //% block="Moisture sensor at |%pin| version |%mode| output as |%outputType|"
+     //% block.loc.de="Feuchtigkeitssensor an |%pin| Version: |%mode| Ausgabe: |%outputType|"
+     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
+     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
+     //% group="Moisture" pin.defl=AnalogPin.C16 mode.defl=MoistureMode.Original outputType.defl=MoistureOutput.Number
+     export function measureMoistureAnalogOriginal(
+          pin: AnalogPin,
+          mode: MoistureMode,
+          outputType: MoistureOutput
+     ): number {
+           let rawValue = pins.analogReadPin(pin);
+           let scaledValue = Math.round((rawValue - 700) * (500 - 10) / (400 - 700) + 10);
+    
+           if (outputType === MoistureOutput.Percent) {
+               if (mode === MoistureMode.Scaled) {
+                   return Math.round(((scaledValue - 10) * (85 - 10)) / (500 - 10) + 10);
+               } else {
+                   return Math.round((rawValue / 1023) * 100);
+               }
+           } else {
+               return mode === MoistureMode.Scaled ? scaledValue : rawValue;
+           }
+     }
 
-        // Handle output type
-        if (outputType === MoistureOutput.Percent) {
-            if (mode === MoistureMode.Scaled) {
-                return Math.round(((scaledValue - 10) * (85 - 10)) / (500 - 10) + 10);
-            } else {
-                return Math.round((rawValue / 1023) * 100);
-            }
-        } else {
-            // Output as raw number
-            return mode === MoistureMode.Scaled ? scaledValue : rawValue;
-        }
-    }
 
-/**
- * Mode of moisture sensor measurement
- */
-enum MoistureMode {
-    //% block="Grove sensor"
-    //% block.loc.de="Grove Sensor"
-    Original,
-    //% block="Calliope sensor"
-    //% block.loc.de="Calliope Sensor"
-    Scaled
-}
-
-/**
- * Output type of the moisture sensor
- */
-enum MoistureOutput {
-    //% block="number"
-    //% block.loc.de="analog"
-    Number,
-    //% block="percent"
-    //% block.loc.de="Prozent"
-    Percent
-}
-
+    
 
     /**
      * Create a new driver Grove - 4-Digit Display
