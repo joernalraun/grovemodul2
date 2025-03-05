@@ -513,8 +513,8 @@ namespace grove {
 
 
     //% blockId=grove_Moisture_analoggrove
-    //% block="Moisture sensor at |%pin| version |%mode| output as |%outputType|"
     //% block.loc.de="Feuchtigkeitssensor an |%pin| Version |%mode| als |%outputType|"
+    //% block="Moisture sensor at |%pin| version |%mode| output as |%outputType|"
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
     //% group="Moisture" pin.defl=AnalogPin.C16 
