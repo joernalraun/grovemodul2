@@ -512,37 +512,51 @@ namespace grove {
     }
 
 
-     /**
-     * Read the analog values of the moisture sensor (original)
-     * @param pin signal pin of moisture sensor module
-     * @param mode select the mode of measurement
-     * @param outputType choose output type
-     */
-     //% blockId=grove_Moisture_analoggrove
-     //% block="Moisture sensor at |%pin| version |%mode| output as |%outputType|"
-     //% block.loc.de="Feuchtigkeitssensor an |%pin| Version: |%mode| Ausgabe: |%outputType|"
-     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
-     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
-     //% group="Moisture" pin.defl=AnalogPin.C16 mode.defl=MoistureMode.Original outputType.defl=MoistureOutput.Number
-     export function measureMoistureAnalogOriginal(
-          pin: AnalogPin,
-          mode: MoistureMode,
-          outputType: MoistureOutput
-     ): number {
-           let rawValue = pins.analogReadPin(pin);
-           let scaledValue = Math.round((rawValue - 700) * (500 - 10) / (400 - 700) + 10);
-    
-           if (outputType === MoistureOutput.Percent) {
-               if (mode === MoistureMode.Scaled) {
-                   return Math.round(((scaledValue - 10) * (85 - 10)) / (500 - 10) + 10);
-               } else {
-                   return Math.round((rawValue / 1023) * 100);
-               }
-           } else {
-               return mode === MoistureMode.Scaled ? scaledValue : rawValue;
-           }
-     }
+    //% blockId=grove_Moisture_analoggrove
+    //% block="Moisture sensor at |%pin| version |%mode| output as |%outputType|"
+    //% block.loc.de="Feuchtigkeitssensor an |%pin| Version |%mode| Ausgabe |%outputType|"
+    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
+    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
+    //% group="Moisture" pin.defl=AnalogPin.C16 
+    //% mode.defl=MoistureMode.Original 
+    //% outputType.defl=MoistureOutput.Number
+    export function measureMoistureAnalogOriginal(
+        pin: AnalogPin,
+        mode: MoistureMode,
+        outputType: MoistureOutput
+    ): number {
+        let rawValue = pins.analogReadPin(pin);
+        let scaledValue = Math.round((rawValue - 700) * (500 - 10) / (400 - 700) + 10);
 
+        if (outputType === MoistureOutput.Percent) {
+            if (mode === MoistureMode.Scaled) {
+                return Math.round(((scaledValue - 10) * (85 - 10)) / (500 - 10) + 10);
+            } else {
+                return Math.round((rawValue / 1023) * 100);
+            }
+        } else {
+            return mode === MoistureMode.Scaled ? scaledValue : rawValue;
+        }
+    }
+
+    // Also update the enum localization
+    enum MoistureMode {
+    //% block="Grove sensor (blue)"
+    //% block.loc.de="Grove Sensor (blau)"
+    Original = 0,
+    //% block="Calliope sensor (black)"
+    //% block.loc.de="Calliope Sensor (schwarz)"
+    Scaled = 1
+    }
+
+    enum MoistureOutput {
+    //% block="analog"
+    //% block.loc.de="Analog"
+    Number = 0,
+    //% block="percent"
+    //% block.loc.de="Prozent"
+    Percent = 1
+    }
 
     
 
