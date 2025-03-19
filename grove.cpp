@@ -6,6 +6,7 @@ namespace grove {
      */
     //% block="Is Codal?"
     //% group="Ultrasonic"
+    //% hidden=1 deprecated=1
     bool isCodal() {
 #if MICROBIT_CODAL
        return true;

@@ -459,10 +459,6 @@ namespace grove {
     let paj7620 = new PAJ7620();
     // adapted to Calliope mini V2 Core by M.Klein 17.09.2020
 
-    export function isCodal(): boolean {
-        return grove.isCodal();
-    }
-
     /**
      * Create a new driver of Grove - Ultrasonic Sensor to measure distances in cm
      * @param pin signal pin of ultrasonic ranger module
