@@ -2,12 +2,10 @@
 
 namespace grove {
     /**
-     * Return true if current environment is Codal
+     * Check if the runtime is Codal
      */
-    //% async block="isCodal" blockGap=16
-    //% blockId=grove_is_codal
-    //% group="grove"
-
+    //% block="Is Codal?"
+    //% group="Ultrasonic"
     bool isCodal() {
 #if MICROBIT_CODAL
        return true;
