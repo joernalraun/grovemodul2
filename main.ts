@@ -83,6 +83,13 @@ enum GroveJoystickKey {
     Press = 9
 }
 
+enum DistanceUnit {
+    //% block="cm"
+    cm = 1,
+    //% block="inch"
+    inch = 2,
+};
+
 enum MoistureMode {
     //% block="Grove sensor (blue)"
     //% block.loc.de="Grove Sensor (blau)"
@@ -452,6 +459,39 @@ namespace grove {
     let paj7620 = new PAJ7620();
     // adapted to Calliope mini V2 Core by M.Klein 17.09.2020
 
+
+    /**
+     * Create a new driver of Grove - Ultrasonic Sensor to measure distances in cm
+     * @param pin signal pin of ultrasonic ranger module
+     * @param unit Distance unit of the measurement, cm or inch
+     */
+    //% blockId=grove_ultrasonic_centimeters block="Measure distance at|%pin in|%unit"
+    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
+    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
+    //% group="Ultrasonic" pin.defl=DigitalPin.C16
+    export function measureDistance(pin: DigitalPin, unit: DistanceUnit): number {
+        let duration = 0;
+        let range = 0;
+        const boardVersionDivider = (grove.isCodal ? 29 : 44) // 1 = DAL = 44, CODAL = 29 
+        const distanceUnitDivider = (unit == DistanceUnit.cm ? 1 : 2.54); // cm = 1, inch = 2.54
+
+        pins.digitalWritePin(pin, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(pin, 1);
+        control.waitMicros(20);
+        pins.digitalWritePin(pin, 0);
+        duration = pins.pulseIn(pin, PulseValue.High, 50000); // Max duration 50 ms
+
+        range = Math.round(duration * 153 / boardVersionDivider / 2 / 100 / distanceUnitDivider); 
+
+        if (range > 0) distanceBackup = range;
+        else range = distanceBackup;
+
+        basic.pause(50);
+
+        return range;
+    }
+
     /**
      * Create a new driver of Grove - Ultrasonic Sensor to measure distances in cm
      * @param pin signal pin of ultrasonic ranger module
@@ -460,7 +500,7 @@ namespace grove {
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
     //% group="Ultrasonic" pin.defl=DigitalPin.C16
-
+    //% hidden=1 deprecated=1
     export function measureInCentimeters(pin: DigitalPin): number {
         let duration = 0;
         let RangeInCentimeters = 0;
@@ -490,6 +530,7 @@ namespace grove {
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
     //% group="Ultrasonic" pin.defl=DigitalPin.C16
+    //% hidden=1 deprecated=1
     export function measureInInches(pin: DigitalPin): number {
         let duration = 0;
         let RangeInInches = 0;
