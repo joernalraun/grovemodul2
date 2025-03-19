@@ -8,7 +8,7 @@
     },
     "files": [
         "README.md",
-        "main.cpp",
+        "grove.cpp",
         "main.ts",
         "_locales/de/Grove-strings.json",
         "_locales/uk/Grove-strings.json"
