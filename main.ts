@@ -459,6 +459,9 @@ namespace grove {
     let paj7620 = new PAJ7620();
     // adapted to Calliope mini V2 Core by M.Klein 17.09.2020
 
+    export function isCodal(): boolean {
+        return grove.isCodal();
+    }
 
     /**
      * Create a new driver of Grove - Ultrasonic Sensor to measure distances in cm
@@ -472,7 +475,7 @@ namespace grove {
     export function measureDistance(pin: DigitalPin, unit: DistanceUnit): number {
         let duration = 0;
         let range = 0;
-        const boardVersionDivider = 29;//(grove.isCodal() ? 29 : 44) // 1 = DAL = 44, CODAL = 29 
+        const boardVersionDivider = (isCodal() ? 29 : 44) // 1 = DAL = 44, CODAL = 29 
         const distanceUnitDivider = (unit == DistanceUnit.cm ? 1 : 2.54); // cm = 1, inch = 2.54
 
         pins.digitalWritePin(pin, 0);
