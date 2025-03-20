@@ -464,10 +464,12 @@ namespace grove {
      * @param pin signal pin of ultrasonic ranger module
      * @param unit Distance unit of the measurement, cm or inch
      */
-    //% blockId=grove_ultrasonic_centimeters block="Measure distance at|%pin in|%unit"
+    //% blockId=grove_ultrasonic_centimeters
+    //% block="Measure distance at|%pin in|%unit"
+    //% block.loc.de="Messe Entfernung an|%pin in|%unit"
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="250"
-    //% group="Ultrasonic" pin.defl=DigitalPin.C16
+    //% group="Ultrasonic" group.loc.de="Ultraschall" pin.defl=DigitalPin.C16
     export function measureDistance(pin: DigitalPin, unit: DistanceUnit): number {
         let duration = 0;
         let range = 0;
