@@ -593,7 +593,7 @@ namespace grove {
 
     enum MoistureOutput {
     //% block="analog"
-    //% block.loc.de="Analog"
+    //% block.loc.de="Analogwert"
     Number = 0,
     //% block="percent"
     //% block.loc.de="Prozent"
